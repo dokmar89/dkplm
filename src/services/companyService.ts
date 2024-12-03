@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, query, where, addDoc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import type { Company, Eshop } from '../types/company';
 
@@ -33,5 +33,20 @@ export const getCompanyEshops = async (companyId: string): Promise<Eshop[]> => {
   } catch (error) {
     console.error('Error fetching eshops:', error);
     throw new Error('Failed to fetch company eshops');
+  }
+};
+
+export const createEshop = async (companyId: string, eshopData: Omit<Eshop, 'eshopId'>): Promise<Eshop> => {
+  try {
+    const eshopsRef = collection(db, 'companies', companyId, 'eshops');
+    const docRef = await addDoc(eshopsRef, eshopData);
+    
+    return {
+      eshopId: docRef.id,
+      ...eshopData,
+    };
+  } catch (error) {
+    console.error('Error creating e-shop:', error);
+    throw new Error('Failed to create e-shop');
   }
 };

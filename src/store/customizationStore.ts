@@ -30,6 +30,7 @@ interface MethodsConfig {
   ocr: boolean;
   bankId: boolean;
   mojeId: boolean;
+  aifacescan: boolean;
 }
 
 interface IntegrationConfig {
@@ -96,6 +97,7 @@ export const useCustomizationStore = create<CustomizationState>((set) => ({
     ocr: true,
     bankId: true,
     mojeId: true,
+    aifacescan: true,
   },
   integration: {
     type: 'modal',

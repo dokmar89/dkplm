@@ -1,11 +1,12 @@
 import React from 'react';
 import { useCustomizationStore } from '../../store/customizationStore';
-import { Fingerprint, CreditCard, ScanLine } from 'lucide-react';
+import { Fingerprint, CreditCard, ScanLine, Camera } from 'lucide-react';
 
 const methods = [
   { key: 'ocr', label: 'OCR', icon: ScanLine },
   { key: 'bankId', label: 'BankID', icon: Fingerprint },
   { key: 'mojeId', label: 'MojeID', icon: CreditCard },
+  { key: 'aifacescan', label: 'AI Face Scan', icon: Camera },
 ];
 
 export const MethodsSection = () => {

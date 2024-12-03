@@ -5,21 +5,30 @@ export default {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#2563eb',
+          DEFAULT: '#004D40',
+          dark: '#00352C',
+          light: '#00796B',
           foreground: '#ffffff',
         },
         secondary: {
-          DEFAULT: '#64748b',
+          DEFAULT: '#00796B',
+          dark: '#004D40',
+          light: '#009688',
           foreground: '#ffffff',
+        },
+        accent: {
+          DEFAULT: '#FFD700',
+          dark: '#FFC000',
+          light: '#FFE44D',
+          foreground: '#1f2937',
         },
         destructive: {
           DEFAULT: '#ef4444',
           foreground: '#ffffff',
         },
-        accent: {
-          DEFAULT: '#f3f4f6',
-          foreground: '#1f2937',
-        },
+      },
+      fontFamily: {
+        sans: ['Articulat CF', 'sans-serif'],
       },
     },
   },

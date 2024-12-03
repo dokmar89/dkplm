@@ -17,7 +17,7 @@ export const LoginModal = () => {
 
     try {
       await login(email, password);
-      navigate('/dashboard');
+      navigate('/dashboard', { replace: true });
     } catch (err) {
       setError('Nesprávné přihlašovací údaje');
     }
@@ -74,13 +74,7 @@ export const LoginModal = () => {
             </Button>
           </div>
 
-          <div className="text-center space-x-4">
-            <Button 
-              variant="ghost" 
-              onClick={() => navigate('/registration')}
-            >
-              Registrace
-            </Button>
+          <div className="text-center">
             <Button 
               variant="link" 
               onClick={() => navigate('/forgot-password')}

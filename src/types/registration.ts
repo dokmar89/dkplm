@@ -12,6 +12,21 @@ export interface ContactPerson {
   phone: string;
 }
 
+export interface CompanyData {
+  companyId: string;
+  companyName: string;
+  ico: string;
+  dic: string;
+  address: Address;
+  contactPerson: ContactPerson;
+  userId: string;
+  walletBalance: number;
+  contractType: 'standard' | 'longTerm';
+  contractStartDate: Date;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 export interface RegistrationRequest {
   companyName: string;
   ico: string;
@@ -20,6 +35,8 @@ export interface RegistrationRequest {
   contactPerson: ContactPerson;
   status: 'pending' | 'approved' | 'rejected';
   submittedAt: Date;
+  userId: string;
+  companyId?: string;
 }
 
 export interface RegistrationFormData {
@@ -28,4 +45,10 @@ export interface RegistrationFormData {
   dic: string;
   address: Address;
   contactPerson: ContactPerson;
+}
+
+export interface RegistrationResponse {
+  success: boolean;
+  companyId: string;
+  error?: string;
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Fingerprint, Phone, CreditCard, ScanLine } from 'lucide-react';
+import { Fingerprint, Camera, CreditCard, ScanLine } from 'lucide-react';
 
 interface MethodStats {
   method: string;
@@ -12,7 +12,7 @@ const methods: MethodStats[] = [
   { method: 'BankID', icon: Fingerprint, count: 150, total: 200 },
   { method: 'MojeID', icon: CreditCard, count: 80, total: 100 },
   { method: 'OCR', icon: ScanLine, count: 120, total: 150 },
-  { method: 'Phone', icon: Phone, count: 90, total: 120 },
+  { method: 'AI Face Scan', icon: Camera, count: 90, total: 120 },
 ];
 
 export const MethodRatio = () => {

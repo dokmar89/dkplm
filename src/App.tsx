@@ -1,7 +1,6 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { RegistrationForm } from './components/registration/RegistrationForm';
 import { RegistrationSuccess } from './pages/RegistrationSuccess';
-import { ClientDashboard } from './pages/ClientDashboard';
 import { LoginModal } from './components/auth/LoginModal';
 import { SignupModal } from './components/auth/SignupFlow/SignupModal';
 import { Sidebar } from './components/layout/Sidebar';
@@ -11,6 +10,7 @@ import { Billing } from './pages/Billing';
 import { Customization } from './pages/Customization';
 import { Support } from './pages/Support';
 import { Installation } from './pages/Installation';
+import { NewEshop } from './pages/NewEshop';
 import { useAuthStore } from './store/authStore';
 
 function App() {
@@ -30,7 +30,8 @@ function App() {
                 <Route path="/customization" element={<Customization />} />
                 <Route path="/support" element={<Support />} />
                 <Route path="/installation" element={<Installation />} />
-                <Route path="/client-dashboard" element={<ClientDashboard />} />
+                <Route path="/eshops/new" element={<NewEshop />} />
+                <Route path="*" element={<Navigate to="/dashboard" replace />} />
               </Routes>
             </main>
           </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useCustomizationStore } from '../../store/customizationStore';
-import { Fingerprint, CreditCard, ScanLine } from 'lucide-react';
+import { Fingerprint, CreditCard, ScanLine, Camera } from 'lucide-react';
 
 export const Preview = () => {
   const { branding, style, text, methods } = useCustomizationStore();
@@ -35,33 +35,28 @@ export const Preview = () => {
 
         <div className="space-y-4">
           {methods.ocr && (
-            <button
-              className={`w-full flex items-center space-x-3 p-3 border ${getButtonClass()} hover:bg-gray-50`}
-              style={{ borderColor: branding.primaryColor }}
-            >
-              <ScanLine className="h-5 w-5" style={{ color: branding.primaryColor }} />
-              <span>Verify with OCR</span>
-            </button>
+            <div className="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-100">
+              <ScanLine className="h-5 w-5" />
+              <span>OCR</span>
+            </div>
           )}
-
           {methods.bankId && (
-            <button
-              className={`w-full flex items-center space-x-3 p-3 border ${getButtonClass()} hover:bg-gray-50`}
-              style={{ borderColor: branding.primaryColor }}
-            >
-              <Fingerprint className="h-5 w-5" style={{ color: branding.primaryColor }} />
-              <span>Verify with BankID</span>
-            </button>
+            <div className="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-100">
+              <Fingerprint className="h-5 w-5" />
+              <span>BankID</span>
+            </div>
           )}
-
           {methods.mojeId && (
-            <button
-              className={`w-full flex items-center space-x-3 p-3 border ${getButtonClass()} hover:bg-gray-50`}
-              style={{ borderColor: branding.primaryColor }}
-            >
-              <CreditCard className="h-5 w-5" style={{ color: branding.primaryColor }} />
-              <span>Verify with MojeID</span>
-            </button>
+            <div className="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-100">
+              <CreditCard className="h-5 w-5" />
+              <span>MojeID</span>
+            </div>
+          )}
+          {methods.aifacescan && (
+            <div className="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-100">
+              <Camera className="h-5 w-5" />
+              <span>AI Face Scan</span>
+            </div>
           )}
         </div>
 

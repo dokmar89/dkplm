@@ -3,90 +3,98 @@ import { useNavigate } from 'react-router-dom';
 import { CompanyInfoForm } from './CompanyInfoForm';
 import { AddressForm } from './AddressForm';
 import { ContactPersonForm } from './ContactPersonForm';
-import { Button } from '../ui/Button';
-import type { RegistrationFormData } from '../../types/registration';
 import { submitRegistrationRequest } from '../../services/registrationService';
-
-const initialFormData: RegistrationFormData = {
-  companyName: '',
-  ico: '',
-  dic: '',
-  address: {
-    street: '',
-    city: '',
-    zip: '',
-    country: ''
-  },
-  contactPerson: {
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: ''
-  }
-};
+import type { RegistrationFormData } from '../../types/registration';
 
 export const RegistrationForm = () => {
-  const [formData, setFormData] = useState<RegistrationFormData>(initialFormData);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState<RegistrationFormData>({
+    companyName: '',
+    ico: '',
+    dic: '',
+    address: {
+      street: '',
+      city: '',
+      zip: '',
+      country: 'Česká republika'
+    },
+    contactPerson: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: ''
+    }
+  });
+  const [error, setError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+  const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
+    setSubmitting(true);
+    setError(null);
 
     try {
-      await submitRegistrationRequest(formData);
-      navigate('/registration-success');
+      const response = await submitRegistrationRequest(formData);
+      if (response.success) {
+        setSuccess(true);
+      }
     } catch (error) {
       console.error('Registration failed:', error);
-      // Handle error (show error message to user)
+      setError('Failed to submit registration request');
     } finally {
-      setIsSubmitting(false);
+      setSubmitting(false);
     }
   };
 
-  return (
-    <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-8 p-6">
-      <div className="text-center">
-        <h1 className="text-3xl font-bold">Registrace společnosti</h1>
-        <p className="text-gray-600 mt-2">
-          Vyplňte prosím následující údaje pro registraci vaší společnosti
-        </p>
+  if (success) {
+    return (
+      <div className="max-w-2xl mx-auto p-6">
+        <div className="bg-green-50 border border-green-200 rounded-lg p-6 text-center">
+          <h2 className="text-2xl font-semibold text-green-800 mb-2">
+            Žádost o registraci byla úspěšně odeslána
+          </h2>
+          <p className="text-green-700 mb-4">
+            Děkujeme za Váš zájem. Vaši žádost zpracujeme co nejdříve.
+          </p>
+          <button
+            onClick={() => navigate('/')}
+            className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+          >
+            Zpět na hlavní stránku
+          </button>
+        </div>
       </div>
+    );
+  }
 
+  return (
+    <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-8">
       <CompanyInfoForm
-        companyName={formData.companyName}
-        ico={formData.ico}
-        dic={formData.dic}
-        onCompanyNameChange={(value) => setFormData({ ...formData, companyName: value })}
-        onIcoChange={(value) => setFormData({ ...formData, ico: value })}
-        onDicChange={(value) => setFormData({ ...formData, dic: value })}
+        formData={formData}
+        setFormData={setFormData}
       />
-
       <AddressForm
-        address={formData.address}
-        onChange={(address) => setFormData({ ...formData, address })}
+        formData={formData}
+        setFormData={setFormData}
       />
-
       <ContactPersonForm
-        contactPerson={formData.contactPerson}
-        onChange={(contactPerson) => setFormData({ ...formData, contactPerson })}
+        formData={formData}
+        setFormData={setFormData}
       />
 
-      <div className="flex justify-end space-x-4">
-        <Button
-          type="button"
-          variant="outline"
-          onClick={() => navigate('/')}
-        >
-          Zrušit
-        </Button>
-        <Button
+      {error && (
+        <div className="text-red-600 text-sm">{error}</div>
+      )}
+
+      <div className="flex justify-end">
+        <button
           type="submit"
-          disabled={isSubmitting}
+          disabled={submitting}
+          className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
         >
-          {isSubmitting ? 'Odesílání...' : 'Odeslat registraci'}
-        </Button>
+          {submitting ? 'Odesílám...' : 'Odeslat žádost'}
+        </button>
       </div>
     </form>
   );

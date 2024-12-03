@@ -1,4 +1,6 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Store } from 'lucide-react';
 import { EshopSelector } from '../components/customization/EshopSelector';
 import { BrandingSection } from '../components/customization/BrandingSection';
 import { StyleSection } from '../components/customization/StyleSection';
@@ -11,6 +13,7 @@ import { useCustomizationStore } from '../store/customizationStore';
 import { Button } from '../components/ui/Button';
 
 export const Customization = () => {
+  const navigate = useNavigate();
   const selectedEshop = useCustomizationStore((state) => state.selectedEshop);
 
   const handleSave = () => {
@@ -20,7 +23,16 @@ export const Customization = () => {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold mb-6">Customization</h1>
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-2xl font-bold">Customization</h1>
+        <Button 
+          onClick={() => navigate('/eshops/new')} 
+          className="flex items-center gap-2"
+        >
+          <Store className="w-4 h-4" />
+          Přidat E-shop
+        </Button>
+      </div>
       
       <EshopSelector />
 
